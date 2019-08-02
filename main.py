@@ -5,12 +5,14 @@ from lava import Lava
 playercol = input("What color? (colors are red, green, blue, and yellow) ")
 if playercol == "red":
     playercol = (255, 0, 0)
-if playercol == "green":
+elif playercol == "green":
     playercol = (0, 255, 0)
-if playercol == "blue":
+elif playercol == "blue":
     playercol = (0, 0, 255)
-if playercol == "yellow":
+elif playercol == "yellow":
     playercol = (255, 255, 0)
+else:
+    playercol = (0, 0, 0)
 player = Player(playercol)
 
 pygame.init()
@@ -23,12 +25,17 @@ level = info["level"].min()
 levelInfo = info.iloc[level]
 lavas = []
 
+font = pygame.font.SysFont("comicsansms", 72)
+
 def init():
     global lavas, player
     player.xleft = 10
     player.yup = 10
     lavas = []
-    levelInfo = info.iloc[level]
+    try:
+        levelInfo = info.iloc[level]
+    except:
+        sys.exit("You win!")
     for i in range(levelInfo["numlava"]):
         lavas.append(Lava(random.randint(50, 1300), random.randint(0, 500), random.randint(20, 50)))
 
@@ -62,8 +69,10 @@ while True:
     player.move()
     if player.xleft > 1280:
         level += 1
-        if level == 5:
+        if level < numlevels:
             sys.exit("You win!")
         init()
+    text = font.render(str(level + 1), True, (238,130,238))
+    screen.blit(text, (40 - text.get_width() // 2, 470 - text.get_height() // 2))
     pygame.display.flip()
     screen.fill((255, 255, 255))

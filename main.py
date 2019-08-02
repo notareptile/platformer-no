@@ -49,16 +49,16 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 sys.exit("Thanks for playing!")
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP or event.key == pygame.K_w:
                 player.jump(8)
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 player.xvelocity -= 7
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_s:
                 player.xvelocity += 7
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 player.xvelocity = 0
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_s:
                 player.xvelocity = 0
     for lava in lavas:
         pygame.draw.rect(screen, (91, 229, 227), pygame.Rect(lava.x + (lava.size / 2), lava.y + (lava.size / 2), lava.size, lava.size), 0)
